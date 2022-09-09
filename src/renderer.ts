@@ -1,1 +1,1 @@
-import "./app";
+import "./renderer/index";
