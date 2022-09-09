@@ -1,4 +1,5 @@
 import { Menu, app } from "electron";
+import { stopServer, startServer } from "./server";
 
 const relaunchApp = () => {
   app.relaunch();
@@ -52,7 +53,24 @@ const template: Electron.MenuItemConstructorOptions[] = [
       },
     ],
   },
+  {
+    label: "Server",
+    submenu: [
+      {
+        id: "start-server",
+        label: "Start Server",
+
+        click: startServer,
+      },
+      {
+        id: "stop-server",
+        label: "Stop Server",
+        enabled: false,
+        click: stopServer,
+      },
+    ],
+  },
 ];
 
-const menu = Menu.buildFromTemplate(template);
+export const menu = Menu.buildFromTemplate(template);
 Menu.setApplicationMenu(menu);
