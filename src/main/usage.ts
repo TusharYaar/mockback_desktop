@@ -1,5 +1,5 @@
 import { cpu, mem } from "node-os-utils";
-import { AppUsage } from "./types";
+import { AppUsage } from "../types";
 
 export const getUsage = async (): Promise<AppUsage> => {
   const cpuUsage = await cpu.usage();

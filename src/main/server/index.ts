@@ -1,7 +1,6 @@
-import { app } from "electron";
 import express from "express";
 import http from "http";
-import { sendServerStatusToRenderer } from "../index";
+import { sendServerStatusToRenderer } from "../../index";
 import { menu } from "../menu";
 
 const port = 8080;
