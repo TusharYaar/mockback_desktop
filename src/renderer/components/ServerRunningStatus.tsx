@@ -1,30 +1,23 @@
+import { Button } from "@mantine/core";
 import React from "react";
-import { createStyles } from "@mantine/core";
 import { useApp } from "../context/AppContext";
 import UsageChart from "./UsageChart";
 
-const useStyles = createStyles((theme) => ({
-  runningStatusContainer: {
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: 200,
-    backgroundColor: "olive",
-    zIndex: 100,
-    display: "flex",
-    borderRadius: theme.radius.sm,
-  },
-}));
-
 const ServerRunningStatus = () => {
-  const { usage } = useApp();
-  const { classes } = useStyles();
+  const { usage, serverRunning } = useApp();
 
+  const handleStartServer = () => {
+    window.serverAPI.startServer();
+  };
+  const handleStopServer = () => {
+    window.serverAPI.stopServer();
+  };
   return (
-    <div className={classes.runningStatusContainer}>
+    <div>
       {usage.length > 1 && usage[usage.length - 1].memoryUsage}
       {usage.length > 1 && usage[usage.length - 1].cpuUsage}
       <UsageChart data={usage} />
+      <Button onClick={serverRunning ? handleStopServer : handleStartServer}>{serverRunning ? "Stop" : "Start"}</Button>
     </div>
   );
 };

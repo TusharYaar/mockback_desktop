@@ -1,30 +1,42 @@
+import { app } from "electron";
 import express from "express";
 import http from "http";
+import { sendServerStatusToRenderer } from "../index";
 import { menu } from "../menu";
 
-const expressApp = express();
-let runningHttpServer: http.Server;
-
-const httpServer = http.createServer(expressApp);
-
+const port = 8080;
 let serverRunning = false;
 
-export const startServer = () => {
-  if (serverRunning) return;
-  runningHttpServer = httpServer.listen(8080);
-  handleServerOptions(true);
+const expressApp = express();
+const httpServer = http.createServer(expressApp);
+
+let runningHttpServer: http.Server;
+
+export const startServer = async () => {
+  if (serverRunning) return sendServerStatusToRenderer(serverRunning, false, port, " Server Already Running");
+  try {
+    runningHttpServer = httpServer.listen(port);
+    handleServerOptions(true);
+    sendServerStatusToRenderer(serverRunning, true, port, "");
+  } catch (error) {
+    sendServerStatusToRenderer(serverRunning, false, port, "Cannot start server");
+  }
 };
 
-export const stopServer = () => {
-  if (!serverRunning) return;
-  if (runningHttpServer !== null) runningHttpServer.close();
-  handleServerOptions(false);
+export const stopServer = async () => {
+  if (!serverRunning) return sendServerStatusToRenderer(serverRunning, false, port, "No server Running");
+  try {
+    if (runningHttpServer !== null) runningHttpServer.close();
+    handleServerOptions(false);
+    sendServerStatusToRenderer(serverRunning, true, port, "");
+  } catch (error) {
+    sendServerStatusToRenderer(serverRunning, false, port, "Cannot stop server");
+  }
 };
 
 export const handleServerOptions = (running: boolean) => {
   const startServerMenu = menu.getMenuItemById("start-server");
   const stopServerMenu = menu.getMenuItemById("stop-server");
-
   serverRunning = running;
   startServerMenu.enabled = !running;
   stopServerMenu.enabled = running;
@@ -33,7 +45,7 @@ export const handleServerOptions = (running: boolean) => {
 export const getServerStatus = () => {
   return {
     running: serverRunning,
-    port: 8080,
+    port,
   };
 };
 

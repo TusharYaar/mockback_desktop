@@ -16,6 +16,7 @@ const template: Electron.MenuItemConstructorOptions[] = [
         label: "Relaunch",
         click: relaunchApp,
       },
+      { role: "quit" },
     ],
   },
   ...(app.isPackaged

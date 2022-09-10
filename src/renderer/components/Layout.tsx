@@ -5,14 +5,18 @@ import ServerRunningStatus from "./ServerRunningStatus";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <ServerRunningStatus />
       <AppShell
         padding="md"
         navbar={<SideBar />}
-        // header={<Header height={60} p="xs"></Header>}
+        header={
+          <Header height={60}>
+            <ServerRunningStatus />
+          </Header>
+        }
         styles={(theme) => ({
           main: { backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.colors.gray[0] },
         })}>
+        {/* <ServerRunningStatus />  */}
         {children}
       </AppShell>
     </>

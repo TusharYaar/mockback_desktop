@@ -3,17 +3,20 @@ import { MantineProvider } from "@mantine/core";
 import AppProvider from "./context/AppContext";
 import Layout from "./components/Layout";
 import AppUsageProvider from "./context/AppUsageContext";
+import ServerProvider from "./context/ServerContext";
 
 const App = () => {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <AppUsageProvider>
-        <AppProvider>
-          <Layout>
-            <div>App</div>
-          </Layout>
-        </AppProvider>
-      </AppUsageProvider>
+      <ServerProvider>
+        <AppUsageProvider>
+          <AppProvider>
+            <Layout>
+              <div>App</div>
+            </Layout>
+          </AppProvider>
+        </AppUsageProvider>
+      </ServerProvider>
     </MantineProvider>
   );
 };
