@@ -12,7 +12,7 @@ const App = () => {
         <AppUsageProvider>
           <AppProvider>
             <Layout>
-              <div>App</div>
+              <div style={{ height: 1000 }}>App</div>
             </Layout>
           </AppProvider>
         </AppUsageProvider>

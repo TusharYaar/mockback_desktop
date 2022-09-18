@@ -1,3 +1,5 @@
+import os from "os";
+
 export interface AppUsage {
   time: number;
   cpuCount: number;
@@ -5,4 +7,5 @@ export interface AppUsage {
   totalMemory: number;
   usedMemory: number;
   memoryUsage: number;
+  cpus: os.CpuInfo[];
 }

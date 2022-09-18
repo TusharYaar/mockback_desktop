@@ -21,6 +21,7 @@ export const useApp = () => useContext(AppContext);
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const { usage } = useAppUsage();
   const { serverRunning, serverPort } = useServer();
+  console.log(usage);
 
   return <AppContext.Provider value={{ usage, serverRunning, serverPort }}>{children}</AppContext.Provider>;
 };

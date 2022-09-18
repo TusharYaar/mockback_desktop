@@ -1,5 +1,5 @@
 import React from "react";
-import { AppShell, Header } from "@mantine/core";
+import { AppShell, Header, Navbar, ScrollArea } from "@mantine/core";
 import SideBar from "./SideBar";
 import ServerRunningStatus from "./ServerRunningStatus";
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -7,17 +7,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <AppShell
         padding="md"
-        navbar={<SideBar />}
+        navbar={
+          <Navbar width={{ base: 80 }}>
+            <SideBar />
+          </Navbar>
+        }
         header={
-          <Header height={60}>
+          <Header height={80}>
             <ServerRunningStatus />
           </Header>
         }
-        styles={(theme) => ({
-          main: { backgroundColor: theme.colorScheme === "dark" ? theme.colors.dark[8] : theme.colors.gray[0] },
-        })}>
-        {/* <ServerRunningStatus />  */}
-        {children}
+      >
+        <ScrollArea>{children}</ScrollArea>
       </AppShell>
     </>
   );

@@ -6,8 +6,8 @@ import { menu } from "../menu";
 const port = 8080;
 let serverRunning = false;
 
-const expressApp = express();
-const httpServer = http.createServer(expressApp);
+const singleServer = express();
+const httpServer = http.createServer(singleServer);
 
 let runningHttpServer: http.Server;
 
@@ -48,6 +48,6 @@ export const getServerStatus = () => {
   };
 };
 
-expressApp.get("*", (_, res) => {
+singleServer.get("*", (_, res) => {
   res.json({ hello: "world" });
 });
