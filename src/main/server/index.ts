@@ -2,8 +2,7 @@ import express from "express";
 import http from "http";
 import { sendServerStatusToRenderer } from "../../index";
 import { menu } from "../menu";
-
-const port = 8080;
+import { getAppSettings } from "../storage";
 let serverRunning = false;
 
 const singleServer = express();
@@ -12,6 +11,9 @@ const httpServer = http.createServer(singleServer);
 let runningHttpServer: http.Server;
 
 export const startServer = async () => {
+  const {
+    preferences: { port },
+  } = getAppSettings();
   if (serverRunning) return sendServerStatusToRenderer(serverRunning, false, port, " Server Already Running");
   try {
     runningHttpServer = httpServer.listen(port);
@@ -23,6 +25,9 @@ export const startServer = async () => {
 };
 
 export const stopServer = async () => {
+  const {
+    preferences: { port },
+  } = getAppSettings();
   if (!serverRunning) return sendServerStatusToRenderer(serverRunning, false, port, "No server Running");
   try {
     if (runningHttpServer !== null) runningHttpServer.close();
@@ -42,6 +47,9 @@ export const handleServerOptions = (running: boolean) => {
 };
 
 export const getServerStatus = () => {
+  const {
+    preferences: { port },
+  } = getAppSettings();
   return {
     running: serverRunning,
     port,

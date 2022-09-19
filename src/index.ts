@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import "./main/menu";
 import "./main/about";
+import "./main/storage";
 import { getUsage } from "./main/usage";
 
 import { getServerStatus, startServer, stopServer } from "./main/server";
